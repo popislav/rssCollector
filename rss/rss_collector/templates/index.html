@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <section>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">List of RSS feeds one already monitors</h3>
+          </div>
+          <div class="panel-body">
+            <ul class="list-group">
+            {% for source in sources %}
+                <li class="list-group-item">{{ source.name }} - <a href="{{ source.url }}" target="_blank">{{ source.url }}</a></li>
+            {% endfor %}
+            </ul>
+          </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Insert new RSS source</h3>
+          </div>
+          <div class="panel-body">
+            <form class="form-inline" role="form" method="post">{% csrf_token %}
+                <div class="form-group">
+                    <label class="sr-only" for="name">Name</label>
+                    <input type="text" class="form-control" id="name" placeholder="Sources name" name="name" size="20">
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="url">Url</label>
+                    <input type="url" class="form-control" id="url" placeholder="Sources url" name="url" size="60">
+                </div>
+                <div class="form-group">
+                       <button type="submit" class = "btn btn-default">Submit</button>
+                </div>
+            </form>
+          </div>
+        </div>
+    </section>
+
+    <section>
+        <span style="color:red;"><b>{{ invalid_form }}</b></span>
+    </section>
+
+{% endblock %}

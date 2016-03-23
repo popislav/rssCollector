@@ -112,7 +112,7 @@ class FeedsView(TemplateView):
         print(k)
         print(datetime.datetime.now())
         print(timezone.now())
-        print(k.feeds_set.all())
+        # print(k.feeds_set.all())
 
         context = super(FeedsView, self).get_context_data(**kwargs)
         # context["sources"] = self.model.objects.get_queryset().all()
