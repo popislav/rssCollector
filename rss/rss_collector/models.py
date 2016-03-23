@@ -21,7 +21,7 @@ class SourcesForm(ModelForm):
 
 
 class Feeds(models.Model):
-    source_id = models.ForeignKey(Sources, on_delete=models.CASCADE)
+    sources = models.ForeignKey(Sources, on_delete=models.CASCADE)
     title = models.CharField(max_length=300)
     publish_time = models.DateTimeField(blank=True, null=True, default=datetime.now)
     link = models.URLField(max_length=300)
