@@ -66,11 +66,11 @@ class FeedsView(TemplateView):
         for key in feeds:
             print(key)
             for value in feeds[key]:
-                print(value['title'])
-                print(value['link'])
-                print(value['author'])
-                print(value['published'])
-                print(value['img'])
+                # print(value['title'])
+                # print(value['link'])
+                # print(value['author'])
+                # print(value['published'])
+                # print(value['img'])
                 posts.append(value)
         posts.sort(key=lambda r: r['published'], reverse=True)
         paginator = Paginator(posts, self.paginate_by)
@@ -128,8 +128,9 @@ class FeedsView(TemplateView):
 
         context = super(FeedsView, self).get_context_data(**kwargs)
 
-        p = Feeds(sources="Sport24h", title="Nesreća: Kamion je istovarivao zemlju i pregazio vlasnika kuće", publish_time=dt, link="http://www.24sata.hr/news/nesreca-kamion-je-istovarivao-zemlju-i-pregazio-vlasnika-kuce-466767", author="Željko Rukavina", img_url="http://www.24sata.hr/media/img/e8/cb/42bf6010749bc9cac464.jpeg")
-        p.save()
+        # p = Feeds(sources=Sources.objects.get(pk=1), title="Nesreća: Kamion je istovarivao zemlju i pregazio vlasnika kuće", publish_time=dt, link="http://www.24sata.hr/news/nesreca-kamion-je-istovarivao-zemlju-i-pregazio-vlasnika-kuce-466767", author="Željko Rukavina", img_url="http://www.24sata.hr/media/img/e8/cb/42bf6010749bc9cac464.jpeg")
+        # p.save()
+        
         # context["sources"] = self.model.objects.get_queryset().all()
         context["posts"] = posts
         return context
