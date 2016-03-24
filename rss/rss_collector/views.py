@@ -1,10 +1,13 @@
+import email
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import HttpResponse
 from django.views.generic import FormView, TemplateView
-from rss_collector.models import Sources, SourcesForm
+import pytz
+from rss_collector.models import Sources, SourcesForm, Feeds, FeedsForm
 from rss_collector.myparser import MyParser
-import datetime
-from django.utils import timezone
+from datetime import datetime, timedelta
+from pytz import timezone
+from rss import settings
 from django.shortcuts import render
 
 # Create your views here.
@@ -63,7 +66,11 @@ class FeedsView(TemplateView):
         for key in feeds:
             print(key)
             for value in feeds[key]:
+                print(value['title'])
+                print(value['link'])
+                print(value['author'])
                 print(value['published'])
+                print(value['img'])
                 posts.append(value)
         posts.sort(key=lambda r: r['published'], reverse=True)
         paginator = Paginator(posts, self.paginate_by)
@@ -106,15 +113,23 @@ class FeedsView(TemplateView):
         #         pass
         #     print("+++++++++++++++++++++++++++++++++")
 
+        zagreb = timezone(settings.TIME_ZONE)
         f = Sources.objects.filter(id=1)
         print(f)
-        k = Sources.objects.filter(pk=1)
+        k = Sources.objects.get(pk=1)
         print(k)
-        print(datetime.datetime.now())
-        print(timezone.now())
-        # print(k.feeds_set.all())
+        print(datetime.now(zagreb))
+        # print(timezone.now())
+        print(k.feeds_set.all())
+
+        dt = datetime.fromtimestamp(email.utils.mktime_tz(email.utils.parsedate_tz("Thu, 24 Mar 2016 16:32:01 +0100")), zagreb)
+        print(dt)
+        print((datetime.now(zagreb) - dt) > timedelta(seconds=0))
 
         context = super(FeedsView, self).get_context_data(**kwargs)
+
+        p = Feeds(sources="Sport24h", title="Nesreća: Kamion je istovarivao zemlju i pregazio vlasnika kuće", publish_time=dt, link="http://www.24sata.hr/news/nesreca-kamion-je-istovarivao-zemlju-i-pregazio-vlasnika-kuce-466767", author="Željko Rukavina", img_url="http://www.24sata.hr/media/img/e8/cb/42bf6010749bc9cac464.jpeg")
+        p.save()
         # context["sources"] = self.model.objects.get_queryset().all()
         context["posts"] = posts
         return context
