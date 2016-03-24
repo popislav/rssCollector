@@ -59,6 +59,7 @@ class FeedsView(TemplateView):
         all_sources = Sources.objects.get_queryset().all()
         feeds = {}
         posts = []
+        zagreb = timezone(settings.TIME_ZONE)
         for source in all_sources:
             myparser = MyParser(source.url)
             myparser.parse()
@@ -69,9 +70,12 @@ class FeedsView(TemplateView):
                 # print(value['title'])
                 # print(value['link'])
                 # print(value['author'])
+                print(datetime.fromtimestamp(email.utils.mktime_tz(email.utils.parsedate_tz(value['published'])), zagreb))
                 # print(value['published'])
                 # print(value['img'])
                 posts.append(value)
+
+        ###paginator part
         posts.sort(key=lambda r: r['published'], reverse=True)
         paginator = Paginator(posts, self.paginate_by)
 
@@ -83,8 +87,9 @@ class FeedsView(TemplateView):
             posts = paginator.page(1)
         except EmptyPage:
             posts = paginator.page(paginator.num_pages)
+        ###
 
-        zagreb = timezone(settings.TIME_ZONE)
+
         f = Sources.objects.filter(id=1)
         print(f)
         k = Sources.objects.get(pk=1)
