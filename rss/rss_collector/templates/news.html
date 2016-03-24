@@ -2,26 +2,6 @@
 
 {% block content %}
 
-{#    <section class="pull-left">#}
-{#        <div class="panel panel-default">#}
-{#          <div class="panel-heading">#}
-{#            <h3 class="panel-title">Your newest feeds</h3>#}
-{#          </div>#}
-{#          <div class="panel-body">#}
-{#            <ul class="list-group">#}
-{#            {% for key in posts %}#}
-{#                    <li class="list-group-item">#}
-{#                        <div>#}
-{#                            <p>{{ key.published }}</p>#}
-{#                            <a href="{{ key.link }}" target="_blank">{{ key.link }}</a>#}
-{#                        </div>#}
-{#                    </li>#}
-{#            {% endfor %}#}
-{#            </ul>#}
-{#          </div>#}
-{#        </div>#}
-{#    </section>#}
-
     <div class="center-container">
         <div class="center-row">
           <div class="col-xs-6 bg-one text-center">
@@ -35,7 +15,7 @@
                     {% for key in posts %}
                             <li class="list-group-item">
                                 <div>
-                                    <img src="{{ key.img }}">
+                                    <img src="{{ key.img }}" style="width:100px;">
                                     <h5>{{ key.title }}</h5>
                                     <p>{{ key.author }}</p>
                                     <a href="{{ key.link }}" target="_blank">{{ key.link }}</a>

@@ -8,6 +8,7 @@ from rss_collector.myparser import MyParser
 from datetime import datetime, timedelta
 from pytz import timezone
 from rss import settings
+# from easy_thumbnails.files import get_thumbnailer
 from django.shortcuts import render
 
 # Create your views here.
@@ -70,10 +71,12 @@ class FeedsView(TemplateView):
                 # print(value['title'])
                 # print(value['link'])
                 # print(value['author'])
-                print(datetime.fromtimestamp(email.utils.mktime_tz(email.utils.parsedate_tz(value['published'])), zagreb))
+
+                # print(datetime.fromtimestamp(email.utils.mktime_tz(email.utils.parsedate_tz(value['published'])), zagreb))
                 # print(value['published'])
-                # print(value['img'])
                 posts.append(value)
+
+                # value['img'] = get_thumbnailer(value['img'])['avatar'].url
 
         ###paginator part
         posts.sort(key=lambda r: r['published'], reverse=True)

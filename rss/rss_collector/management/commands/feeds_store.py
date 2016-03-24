@@ -11,12 +11,8 @@ class Command(BaseCommand):
     help = 'Stores active posts to db'
     args = 'Arguments are not needed'
 
-    # def add_arguments(self, parser):
-    #     parser.add_argument('feeds_id', nargs='+', type=int)
-
     def handle(self, *args, **options):
         feeds = {}
-        posts = []
         zagreb = timezone(settings.TIME_ZONE)
         all_sources = Sources.objects.get_queryset().all()
         for source in all_sources:

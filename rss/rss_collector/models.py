@@ -35,5 +35,5 @@ class Feeds(models.Model):
 class FeedsForm(ModelForm):
     class Meta:
         model = Feeds
-        fields = ['title', 'publish_time', 'link', 'author', 'img_url']
+        fields = ['sources', 'title', 'publish_time', 'link', 'author', 'img_url']
 
