@@ -61,11 +61,11 @@ class FeedsView(TemplateView):
         posts = []
         zagreb = timezone(settings.TIME_ZONE)
         for source in all_sources:
+            print(source)
             myparser = MyParser(source.url)
             myparser.parse()
             feeds[source.url] = myparser.get_posts()
         for key in feeds:
-            print(key)
             for value in feeds[key]:
                 # print(value['title'])
                 # print(value['link'])
