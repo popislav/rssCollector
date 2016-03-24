@@ -15,11 +15,11 @@
                     {% for key in posts %}
                             <li class="list-group-item">
                                 <div>
-                                    <img src="{{ key.img }}" style="width:100px;">
+                                    <img src="{{ key.img_url }}" style="width:100px;">
                                     <h5>{{ key.title }}</h5>
                                     <p>{{ key.author }}</p>
-                                    <a href="{{ key.link }}" target="_blank">{{ key.link }}</a>
-                                    <p>{{ key.published }}</p>
+{#                                    <a href="{{ key.link }}" target="_blank">{{ key.link }}</a>#}
+                                    <p>{{ key.publish_time }}</p>
                                 </div>
                             </li>
                     {% endfor %}

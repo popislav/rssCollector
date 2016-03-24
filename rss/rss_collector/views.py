@@ -53,33 +53,21 @@ class IndexView(FormView):
 
 class FeedsView(TemplateView):
     template_name = "news.html"
-    sources = Sources
+    sources = Sources.objects
+    feeds = Feeds.objects
     paginate_by = 20
 
     def get_context_data(self, **kwargs):
-        all_sources = Sources.objects.get_queryset().all()
-        feeds = {}
-        posts = []
-        zagreb = timezone(settings.TIME_ZONE)
-        for source in all_sources:
-            print(source)
-            myparser = MyParser(source.url)
-            myparser.parse()
-            feeds[source.url] = myparser.get_posts()
-        for key in feeds:
-            for value in feeds[key]:
-                # print(value['title'])
-                # print(value['link'])
-                # print(value['author'])
 
-                # print(datetime.fromtimestamp(email.utils.mktime_tz(email.utils.parsedate_tz(value['published'])), zagreb))
-                # print(value['published'])
-                posts.append(value)
+        # value['img'] = get_thumbnailer(value['img'])['avatar'].url
 
-                # value['img'] = get_thumbnailer(value['img'])['avatar'].url
+        # sort array
+        # posts.sort(key=lambda r: r['published'], reverse=True)
+
+        posts = self.feeds.all()
+        print(posts)
 
         ###paginator part
-        posts.sort(key=lambda r: r['published'], reverse=True)
         paginator = Paginator(posts, self.paginate_by)
 
         page = self.request.GET.get('page')
@@ -93,17 +81,10 @@ class FeedsView(TemplateView):
         ###
 
 
-        f = Sources.objects.filter(id=1)
-        print(f)
-        k = Sources.objects.get(pk=1)
-        print(k)
-        print(datetime.now(zagreb))
-        # print(timezone.now())
-        print(k.feeds_set.all())
-
-        dt = datetime.fromtimestamp(email.utils.mktime_tz(email.utils.parsedate_tz("Thu, 24 Mar 2016 16:32:01 +0100")), zagreb)
-        print(dt)
-        print((datetime.now(zagreb) - dt) > timedelta(seconds=0))
+        # f = Sources.objects.filter(id=1)
+        # k = Sources.objects.get(pk=1)
+        # print(k.feeds_set.all())
+        # print((datetime.now(zagreb) - dt) > timedelta(seconds=0))
 
         context = super(FeedsView, self).get_context_data(**kwargs)
 
