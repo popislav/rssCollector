@@ -84,35 +84,6 @@ class FeedsView(TemplateView):
         except EmptyPage:
             posts = paginator.page(paginator.num_pages)
 
-        # feed_items = feedparser.parse(source.url)
-        # print(feed_items)
-        # for entry in feed_items['entries']:
-        #     print("-------------------------")
-        #     print(entry)
-        #     print(entry.title)
-        #     print(entry.link)
-        #     try:
-        #         entry.author
-        #         print(entry['author'])
-        #     except:
-        #         pass
-        #     # print(entry.author_detail.name)
-        #     print(entry.published)
-        #     try:
-        #         entry['summary_detail']['value']
-        #         print(entry['summary_detail']['value'])
-        #         pattern = re.compile('http(.+?)"')
-        #         img_src = pattern.search(entry['summary_detail']['value'])
-        #         try:
-        #             print("found")
-        #             print(img_src.group()[:-1])
-        #             print(img_src.group(0)[:-1])
-        #         except:
-        #             pass
-        #     except:
-        #         pass
-        #     print("+++++++++++++++++++++++++++++++++")
-
         zagreb = timezone(settings.TIME_ZONE)
         f = Sources.objects.filter(id=1)
         print(f)
@@ -130,7 +101,7 @@ class FeedsView(TemplateView):
 
         # p = Feeds(sources=Sources.objects.get(pk=1), title="Nesreća: Kamion je istovarivao zemlju i pregazio vlasnika kuće", publish_time=dt, link="http://www.24sata.hr/news/nesreca-kamion-je-istovarivao-zemlju-i-pregazio-vlasnika-kuce-466767", author="Željko Rukavina", img_url="http://www.24sata.hr/media/img/e8/cb/42bf6010749bc9cac464.jpeg")
         # p.save()
-        
+
         # context["sources"] = self.model.objects.get_queryset().all()
         context["posts"] = posts
         return context
