@@ -18,7 +18,6 @@
                                     <img src="{{ key.img_url }}" class="uk-thumbnail">
                                     <h5>{{ key.title }}</h5>
                                     <p>{{ key.author }}</p>
-{#                                    <a href="{{ key.link }}" target="_blank">{{ key.link }}</a>#}
                                     <p>{{ key.publish_time }}</p>
                                 </div>
                             </li>
@@ -56,20 +55,20 @@
     </div>
 
 
-        <div class="pagination">
-            <span class="step-links">
-                {% if posts.has_previous %}
-                    <a href="?page={{ posts.previous_page_number }}">previous</a>
-                {% endif %}
+    <div class="pagination">
+        <span class="step-links">
+            {% if posts.has_previous %}
+                <a href="?page={{ posts.previous_page_number }}">previous</a>
+            {% endif %}
 
-                <span class="current">
-                    Page {{ posts.number }} of {{ posts.paginator.num_pages }}.
-                </span>
-
-                {% if posts.has_next %}
-                    <a href="?page={{ posts.next_page_number }}">next</a>
-                {% endif %}
+            <span class="current">
+                Page {{ posts.number }} of {{ posts.paginator.num_pages }}.
             </span>
-        </div>
+
+            {% if posts.has_next %}
+                <a href="?page={{ posts.next_page_number }}">next</a>
+            {% endif %}
+        </span>
+    </div>
 
 {% endblock %}

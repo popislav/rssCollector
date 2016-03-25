@@ -69,24 +69,3 @@ class MyParser:
                 return "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg"
         except:
             return ""
-
-
-
-    # def get_title(self):
-    #     return self.title
-    #
-    # def get_link(self):
-    #     return self.link
-    #
-    # def get_author(self):
-    #     return self.author
-    #
-    # def get_published_date(self):
-    #     return self.published_date
-    #
-    # def get_img_src(self):
-    #     return self.img_scr
-
-
-
-

@@ -38,7 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # 'easy_thumbnails',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -101,12 +100,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
-# THUMBNAIL_ALIASES = {
-#     '': {
-#         'avatar': {'size': (100, 50), 'crop': True},
-#     },
-# }
 
 
 # Internationalization

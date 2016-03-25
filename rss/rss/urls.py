@@ -19,5 +19,5 @@ from django.conf.urls import include
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^rss/', include('rss_collector.urls'))
+    url(r'^', include('rss_collector.urls'))
 ]
