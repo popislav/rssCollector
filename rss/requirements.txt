@@ -1,0 +1,12 @@
+python 3.4
+django 1.9.4
+feedparser 5.2.1
+pytz 2016.03
+simplejson 2.8.2
+
+pip 1.5.4
+setuptools 2.2
+
+jquery 2.2.2
+bootstrap 3.3.6
+uikit 2.25

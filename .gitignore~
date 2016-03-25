@@ -1,4 +1,4 @@
 rss/.idea/
-rss/*.DS_Store
-rss/*.pyc
-rss/__pycache__
+rss/rss/*.DS_Store
+rss/rss/*.pyc
+rss/rss/__pycache__
