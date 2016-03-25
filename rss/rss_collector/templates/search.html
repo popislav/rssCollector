@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <section>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+              <form class="form-inline" role="form" method="get">{% csrf_token %}
+                <div class="form-group">
+                    <label class="sr-only" for="name">Name</label>
+                    <div class="uk-autocomplete uk-form" data-uk-autocomplete="{source:{{ authors }}}">
+                        <input type="text" class="form-control" id="name" placeholder="Author" name="name" size="20">
+                    </div>
+                </div>
+                  <div class="form-group">
+                       <button type="submit" class = "btn btn-default">Search</button>
+                </div>
+            </form>
+          </div>
+          <div class="panel-body">
+               <ul class="list-group">
+                    {% for key in object_list %}
+                            <li class="list-group-item">
+                                <div>
+                                    <img src="{{ key.img_url }}" class="uk-thumbnail">
+                                    <h5>{{ key.title }}</h5>
+                                    <p>{{ key.author }}</p>
+                                    <p>{{ key.publish_time }}</p>
+                                </div>
+                            </li>
+                    {% endfor %}
+               </ul>
+          </div>
+        </div>
+    </section>
+
+{#    <section>#}
+{#        <span style="color:red;"><b>{{ invalid_form }}</b></span>#}
+{#    </section>#}
+
+{% endblock %}

@@ -4,7 +4,7 @@
 
     <div class="center-container">
         <div class="center-row">
-          <div class="col-xs-6 bg-one text-center">
+          <div class="col-xs-6 bg-two text-center">
               <section class="pull-left">
                 <div class="panel panel-default">
                   <div class="panel-heading">
@@ -15,7 +15,7 @@
                     {% for key in posts %}
                             <li class="list-group-item">
                                 <div>
-                                    <img src="{{ key.img_url }}" style="width:100px;">
+                                    <img src="{{ key.img_url }}" class="uk-thumbnail">
                                     <h5>{{ key.title }}</h5>
                                     <p>{{ key.author }}</p>
 {#                                    <a href="{{ key.link }}" target="_blank">{{ key.link }}</a>#}
@@ -31,7 +31,24 @@
         </div>
         <div class="center-row">
           <div class="col-xs-6 bg-three text-center">
-              OTHER TABLE
+              <section class="pull-left">
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h3 class="panel-title">Your chosen links</h3>
+                  </div>
+                  <div class="panel-body">
+                    <ul class="list-group">
+                    {% for key in linked_posts %}
+                            <li class="list-group-item">
+                                <div>
+                                    <a href="{{ key.link }}" target="_blank">{{ key.title }}</a>
+                                </div>
+                            </li>
+                    {% endfor %}
+                    </ul>
+                  </div>
+                </div>
+            </section>
 
           </div>
         </div>

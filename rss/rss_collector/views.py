@@ -1,9 +1,16 @@
 import email
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import HttpResponse
-from django.views.generic import FormView, TemplateView
+from django.views.generic import FormView, TemplateView, ListView
 import pytz
 from rss_collector.models import Sources, SourcesForm, Feeds, FeedsForm
+
+from django.core import serializers
+
+# from django.utils import simplejson
+
+import simplejson
+
 from rss_collector.myparser import MyParser
 from datetime import datetime, timedelta
 from pytz import timezone
@@ -29,8 +36,6 @@ class IndexView(FormView):
 
     def post(self, request, *args, **kwargs):
         form_class = self.get_form_class()
-        # form = SourcesForm(request.POST)
-        # print(form_class)
         form = self.get_form(form_class)
         print(form)
         if form.is_valid(**kwargs):
@@ -64,8 +69,14 @@ class FeedsView(TemplateView):
         # sort array
         # posts.sort(key=lambda r: r['published'], reverse=True)
 
+        # hardcoded
+        if self.sources.filter(pk=1).exists():
+            allowed_feed = self.sources.get(pk=1)
+        else:
+            allowed_feed = "http://www.24sata.hr/feeds/sport.xml"
+
         posts = self.feeds.all()
-        print(posts)
+        linked_posts = self.feeds.filter(sources=allowed_feed)
 
         ###paginator part
         paginator = Paginator(posts, self.paginate_by)
@@ -93,4 +104,53 @@ class FeedsView(TemplateView):
 
         # context["sources"] = self.model.objects.get_queryset().all()
         context["posts"] = posts
+        context["linked_posts"] = linked_posts
         return context
+
+
+class SearchView(ListView):
+    feeds = Feeds.objects
+    template_name = "search.html"
+
+    # def get(self, request, *args, **kwargs):
+    #     self.get_context_data(**kwargs)
+
+    def get_context_data(self, **kwargs):
+        authors_model = []
+        authors_value ={}
+        context = super(SearchView, self).get_context_data(**kwargs)
+
+        all_authors = self.feeds.all().values('author').distinct()
+        for author in all_authors:
+            authors_value['value'] = author['author']
+            authors_model.append(authors_value)
+            authors_value = {}
+        print(authors_model)
+
+        context['authors'] = simplejson.dumps(authors_model)
+        context["object_list"] = self.get_queryset()
+        return context
+        # return HttpResponse(context, content_type='application/json')
+
+    def get_queryset(self):
+        try:
+            name = self.request.GET.get('name')
+        except:
+            name = ''
+        if name != '':
+            object_list = self.feeds.filter(author=name)
+        else:
+            object_list = self.feeds.all()
+        return object_list
+
+
+
+
+    # def post(self, request, *args, **kwargs):
+    #     form_class = self.get_form_class()
+    #     form = self.get_form(form_class)
+    #     print(form)
+    #     if form.is_valid(**kwargs):
+    #         return self.form_valid(form, **kwargs)
+    #     else:
+    #         return  self.form_invalid(form, **kwargs)
